@@ -7,8 +7,8 @@ Implementation of a React Hook to enter cheat codes
 
 ```
 const cheatCodes = useCheatCode([
-  {'cheatone': () => {}},
-  {'cheattwo': () => {}},
+  {'firstCheat': () => {}},
+  {'secondCheat': () => {}},
 ]);
 ```
 - Make tool to generate projects url using github api, so we type the project name to redirect to github repo url
