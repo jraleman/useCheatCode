@@ -1,4 +1,4 @@
-# useCheatCode
+# useCheatCode hook
 Implementation of a React Hook to enter cheat codes
 
 ## Specifications
