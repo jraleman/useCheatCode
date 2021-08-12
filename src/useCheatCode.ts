@@ -1,56 +1,55 @@
 import { useState, useEffect } from 'react';
-
-type CheatCodes = [{
-    name: string;
-    keys: string[];
-}];
-
-const codes: CheatCodes = [
-    {
-        name: 'konami',
-        keys: ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'B', 'A'],
-    }
-];
-
-// we should parse lowerCase() before this function
-const compareKeys = (arr1: string[], arr2: string[]) =>
-    (arr1.length == arr2.length) && arr1.every((k, i) => k.toLowerCase() === arr2[i].toLowerCase());
+import { compareKeys } from './utils';
 
 // add an object into argument
 // pass in CheatCodes array object
 // have some default, like Konami, etc...
-const useCheatCodes = () => {
-    const [activeCheats, setActiveCheats] = useState({});
-    const [inactiveCheats, setInactiveCheats] = useState({});
+const useCheatCodes = ({ cheatCodes }: IUseCheatCodes) => {
+    const [activeCheats, setActiveCheats] = useState<CheatCode []>([]);
+    const [inactiveCheats, setInactiveCheats] = useState<CheatCode []>([]);
     const [keystrokes, setKeystrokes] = useState<string[]>([]);
 
     const handleKeyDown = (event: any) => {
         event.preventDefault();
         const { key } = event || {};
         if (key) {
-            setKeystrokes((oldKeys) => [...oldKeys, key]);
+            setKeystrokes((oldKeys: string[]) => [...oldKeys, key]);
         }
-    }
+    };
+
+    const clearActiveCheats = () => {
+        setActiveCheats([]);
+    };
+
+    const getByCheatName = (name: string) => {
+        // activeCheats.name
+    };
     
     useEffect(() => {
-        // setTimeout to clear array
-        console.log('keystrokes: ', keystrokes);
-
-        // see how to iterate through codes
-        // we can make a function that returns > 0, if there is cheat code in the list
-        // -1 if it doesn't exist
-        // we can use that number to 
-        // codes
-        // 0 -> konami
-        const isCheatValid = compareKeys(keystrokes, codes[0]?.keys)
-        if (isCheatValid) {
-            window.alert(codes[0].name);
-            setKeystrokes([]);
+        for (let i = 0; i < cheatCodes.length || i < keystrokes.length; i += 1) {
+            const isCheatValid = compareKeys(cheatCodes[i]?.code, keystrokes)
+            if (isCheatValid) {
+                // if (!activeCheats.length && cheatCodes[i].name === includes -> activeCheats) {
+                if (!activeCheats.length) {
+                    setActiveCheats((cheats: CheatCode[]) => [...cheats, cheatCodes[i]]);
+                }
+                setKeystrokes([]);
+                window.alert(cheatCodes[i].name);
+                break;
+            }
         }
     }, [keystrokes]);
 
     useEffect(() => {
-        window?.addEventListener('keydown', handleKeyDown)
+        if (false) {
+            // if (cheatCodes)
+            // filter out activeCheats from cheatCodes, save result to state
+            setInactiveCheats(cheatCodes)
+        }
+    }, [cheatCodes]);
+
+    useEffect(() => {
+        window?.addEventListener('keydown', handleKeyDown);
         return () => {
             window?.removeEventListener('keydown', handleKeyDown);
         }
@@ -60,7 +59,18 @@ const useCheatCodes = () => {
         keystrokes,
         activeCheats,
         inactiveCheats,
+        clearActiveCheats,
+        getByCheatName,
     };
+};
+
+interface IUseCheatCodes {
+    cheatCodes: CheatCode[];
+}
+
+export type CheatCode = {
+    name: string;
+    code: string[];
 };
 
 export default useCheatCodes;

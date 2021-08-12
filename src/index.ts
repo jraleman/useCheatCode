@@ -1,3 +1,3 @@
-import useCheatCodes from './useCheatCode';
+import * as useCheatCodes from './useCheatCode';
 
 export default useCheatCodes;
