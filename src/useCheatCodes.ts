@@ -5,6 +5,8 @@ import { compareKeys } from './utils';
 // pass in CheatCodes array object
 // have some default, like Konami, etc...
 const useCheatCodes = ({ cheatCodes }: IUseCheatCodes) => {
+    // TODO: take into account if user has cheat active,
+    // let him be able to activate it again, or never again until clearning from array
     const [activeCheats, setActiveCheats] = useState<CheatCode []>([]);
     const [inactiveCheats, setInactiveCheats] = useState<CheatCode []>([]);
     const [keystrokes, setKeystrokes] = useState<string[]>([]);
@@ -21,8 +23,9 @@ const useCheatCodes = ({ cheatCodes }: IUseCheatCodes) => {
         setActiveCheats([]);
     };
 
-    const getByCheatName = (name: string) => {
-        // activeCheats.name
+    const getCheatCodeByName = (name: string) => {
+        const filteredCheat = activeCheats?.filter((cheat: CheatCode) => cheat.name === name);
+        return filteredCheat;
     };
     
     useEffect(() => {
@@ -60,7 +63,7 @@ const useCheatCodes = ({ cheatCodes }: IUseCheatCodes) => {
         activeCheats,
         inactiveCheats,
         clearActiveCheats,
-        getByCheatName,
+        getCheatCodeByName,
     };
 };
 
