@@ -4,8 +4,8 @@ import { compareKeys } from './utils';
 // add an object into argument
 // pass in CheatCodes array object
 // have some default, like Konami, etc...
-const useCheatCodes = ({ cheatCodes }: IUseCheatCodes) => {
-    // TODO: take into account if user has cheat active,
+const useCheatCodes = ({ cheatCodes, timeout, repeat = true }: IUseCheatCodes) => {
+    // TODO: take into account if user has cheat actived,
     // let him be able to activate it again, or never again until clearning from array
     const [activeCheats, setActiveCheats] = useState<CheatCode []>([]);
     const [inactiveCheats, setInactiveCheats] = useState<CheatCode []>([]);
@@ -13,7 +13,7 @@ const useCheatCodes = ({ cheatCodes }: IUseCheatCodes) => {
 
     const handleKeyDown = (event: any) => {
         event.preventDefault();
-        const { key } = event || {};
+        const { key } = event;
         if (key) {
             setKeystrokes((oldKeys: string[]) => [...oldKeys, key]);
         }
@@ -29,27 +29,23 @@ const useCheatCodes = ({ cheatCodes }: IUseCheatCodes) => {
     };
     
     useEffect(() => {
-        for (let i = 0; i < cheatCodes.length || i < keystrokes.length; i += 1) {
-            const isCheatValid = compareKeys(cheatCodes[i]?.code, keystrokes)
+        // TODO: find a better (faster) way to iterate through the cheat codes list
+        for (let i = 0; i < cheatCodes.length; i += 1) {
+            const { code, name, callback = () => {} } = cheatCodes[i];
+            const isCheatValid = compareKeys(code, [...keystrokes.slice(-code?.length)])
             if (isCheatValid) {
-                // if (!activeCheats.length && cheatCodes[i].name === includes -> activeCheats) {
-                if (!activeCheats.length) {
+                const cheatExist = activeCheats.filter((c: CheatCode) => c.name === name);
+                if (!cheatExist.length) {
                     setActiveCheats((cheats: CheatCode[]) => [...cheats, cheatCodes[i]]);
+                    callback();
+                } else if (repeat) {
+                    callback();
                 }
                 setKeystrokes([]);
-                window.alert(cheatCodes[i].name);
                 break;
             }
         }
     }, [keystrokes]);
-
-    useEffect(() => {
-        if (false) {
-            // if (cheatCodes)
-            // filter out activeCheats from cheatCodes, save result to state
-            setInactiveCheats(cheatCodes)
-        }
-    }, [cheatCodes]);
 
     useEffect(() => {
         window?.addEventListener('keydown', handleKeyDown);
@@ -69,11 +65,14 @@ const useCheatCodes = ({ cheatCodes }: IUseCheatCodes) => {
 
 interface IUseCheatCodes {
     cheatCodes: CheatCode[];
+    timeout?: number;
+    repeat?: boolean;
 }
 
 export type CheatCode = {
     name: string;
     code: string[];
+    callback?: Function;
 };
 
 export default useCheatCodes;
