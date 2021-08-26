@@ -48,7 +48,7 @@ const useCheatCodes = ({ cheatCodes, timeout, repeat = true }: IUseCheatCodes) =
                 break;
             }
         }
-    }, [keystrokes]);
+    }, [keystrokes, activeCheats, cheatCodes, repeat]);
 
     useEffect(() => {
         window.addEventListener('keydown', handleKeyDown);
