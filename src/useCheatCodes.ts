@@ -7,10 +7,11 @@ import { compareKeys } from './utils';
 const useCheatCodes = ({ cheatCodes, timeout, repeat = true }: IUseCheatCodes) => {
     // TODO: take into account if user has cheat actived,
     // let him be able to activate it again, or never again until clearning from array
-    const [activeCheats, setActiveCheats] = useState<CheatCode []>([]);
-    const [inactiveCheats, setInactiveCheats] = useState<CheatCode []>([]);
+    const [activeCheats, setActiveCheats] = useState<CheatCode[]>([]);
+    const [inactiveCheats, setInactiveCheats] = useState<CheatCode[]>([]);
     const [keystrokes, setKeystrokes] = useState<string[]>([]);
 
+    // TODO: replace `any` type with correct key event type
     const handleKeyDown = (event: any) => {
         event.preventDefault();
         const { key } = event;
@@ -23,11 +24,21 @@ const useCheatCodes = ({ cheatCodes, timeout, repeat = true }: IUseCheatCodes) =
         setActiveCheats([]);
     };
 
+    const clearKeystrokes = () => {
+        setKeystrokes([]);
+    };
+
     const getCheatCodeByName = (name: string) => {
         const filteredCheat = activeCheats?.filter((cheat: CheatCode) => cheat.name === name);
         return filteredCheat;
     };
-    
+
+    useEffect(() => {
+        const clearInput = () => timeout && keystrokes.length > 0 && clearKeystrokes();
+        const t = setTimeout(clearInput, timeout);
+        return () => clearTimeout(t);
+    }, [timeout, keystrokes]);
+
     useEffect(() => {
         // TODO: find a better (faster) way to iterate through the cheat codes list
         for (let i = 0; i < cheatCodes.length; i += 1) {
@@ -59,6 +70,7 @@ const useCheatCodes = ({ cheatCodes, timeout, repeat = true }: IUseCheatCodes) =
         activeCheats,
         inactiveCheats,
         clearActiveCheats,
+        clearKeystrokes,
         getCheatCodeByName,
     };
 };
