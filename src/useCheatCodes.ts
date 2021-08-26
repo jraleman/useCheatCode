@@ -1,22 +1,14 @@
 import { useState, useEffect } from 'react';
-import { compareKeys } from './utils';
+import { compareCodes } from './utils';
 
-// add an object into argument
-// pass in CheatCodes array object
-// have some default, like Konami, etc...
 const useCheatCodes = ({ cheatCodes, timeout, repeat = true }: IUseCheatCodes) => {
-    // TODO: take into account if user has cheat actived,
-    // let him be able to activate it again, or never again until clearning from array
     const [activeCheats, setActiveCheats] = useState<CheatCode[]>([]);
-    const [inactiveCheats, setInactiveCheats] = useState<CheatCode[]>([]);
     const [keystrokes, setKeystrokes] = useState<string[]>([]);
 
-    // TODO: replace `any` type with correct key event type
-    const handleKeyDown = (event: any) => {
+    const handleKeyDown = (event: KeyboardEvent) => {
         event.preventDefault();
-        const { key } = event;
-        if (key) {
-            setKeystrokes((oldKeys: string[]) => [...oldKeys, key]);
+        if (event.key) {
+            setKeystrokes((oldKeys: string[]) => [...oldKeys, event.key]);
         }
     };
 
@@ -34,8 +26,8 @@ const useCheatCodes = ({ cheatCodes, timeout, repeat = true }: IUseCheatCodes) =
     };
 
     useEffect(() => {
-        const clearInput = () => timeout && keystrokes.length > 0 && clearKeystrokes();
-        const t = setTimeout(clearInput, timeout);
+        const clearUserInput = () => timeout && keystrokes.length > 0 && clearKeystrokes();
+        const t = setTimeout(clearUserInput, timeout);
         return () => clearTimeout(t);
     }, [timeout, keystrokes]);
 
@@ -43,7 +35,7 @@ const useCheatCodes = ({ cheatCodes, timeout, repeat = true }: IUseCheatCodes) =
         // TODO: find a better (faster) way to iterate through the cheat codes list
         for (let i = 0; i < cheatCodes.length; i += 1) {
             const { code, name, callback = () => {} } = cheatCodes[i];
-            const isCheatValid = compareKeys(code, [...keystrokes.slice(-code?.length)])
+            const isCheatValid = compareCodes(code, [...keystrokes.slice(-code?.length)])
             if (isCheatValid) {
                 const cheatExist = activeCheats.filter((c: CheatCode) => c.name === name);
                 if (!cheatExist.length) {
@@ -59,16 +51,15 @@ const useCheatCodes = ({ cheatCodes, timeout, repeat = true }: IUseCheatCodes) =
     }, [keystrokes]);
 
     useEffect(() => {
-        window?.addEventListener('keydown', handleKeyDown);
+        window.addEventListener('keydown', handleKeyDown);
         return () => {
-            window?.removeEventListener('keydown', handleKeyDown);
+            window.removeEventListener('keydown', handleKeyDown);
         }
     }, []);
 
     return {
         keystrokes,
         activeCheats,
-        inactiveCheats,
         clearActiveCheats,
         clearKeystrokes,
         getCheatCodeByName,
