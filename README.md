@@ -1,27 +1,54 @@
-# useCheatCode hook
-Implementation of a React Hook to enter cheat codes
+# useCheatCodes
+
+Implementation of a React Hook to enter cheatcodes on screen.
+
+## Installation
+
+TBD
+
+## Example
+
+```js
+const cheatCodes = [
+  {
+    name: 'konami',
+    code: ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'B', 'A'], // case insensitive (i.e. ArrowUp === arrowup)
+    callback: () => window.alert('🐢'), // optional
+  },
+  // ... define other cheatCodes
+];
+const timeout = 10000;
+const repeat = false;
+
+const {
+  keystrokes,
+  activeCheats,
+  clearKeystrokes,
+  clearActiveCheats,
+  getCheatCodeByName,
+} = useCheatCodes({ cheatCodes, repeat, timeout });
+```
 
 ## Specifications
-- Hook text captures key strokes by event listeners
-- Array of key-value pairs, cheat-code name and callback function
 
-```
-const cheatCodes = useCheatCode([
-  {'firstCheat': () => {}},
-  {'secondCheat': () => {}},
-]);
-```
-- Make tool to generate projects url using github api, so we type the project name to redirect to github repo url
+- Hook captures keystrokes using an event listener
+- Structure is an array of objects, having the cheatcode's:
+  - `name`
+  - `code` (keys to input/enter)
+  - `callback` function
+- Only compare keystrokes with length of the `code` array
+- Have a `timeout` to clear keystrokes if user is afk
+- Ability to `repeat` cheatcodes multiple times
 
 ## Implementation
-Returns two (2) arrays of cheat-codes, used and un-used respectively.
 
-```
-const initialCheats = [{ 'cheat': () => console.log('callback function') }];
-const [activeCheats, inactiveCheats] = useCheatCode(initialCheats);
-console.log(activeCheats); // []
-console.log(inactiveCheats); // ['cheat']
-```
+Returns `activeCheat` codes, current `keystrokes`, and some helper methods.
+Take a look at `src/useCheatCodes` to follow the implementation
 
 ## TODO
-- Check a better way to organize and document this hook (see other examples)
+
+- [x] Create project repository
+- [x] Implement `useCheatCodes` following specifications
+- [ ] Open dependency project; `keystrokes-hooks` -> `@keystrokes-hooks/useCheatCodes`
+- [ ] Check a better way to organize and document this and other hooks
+- [ ] Create demo app
