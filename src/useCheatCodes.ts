@@ -6,8 +6,8 @@ const useCheatCodes = ({ cheatCodes, timeout, repeat = true }: IUseCheatCodes) =
     const [keystrokes, setKeystrokes] = useState<string[]>([]);
 
     const handleKeyDown = (event: KeyboardEvent) => {
-        event.preventDefault();
-        if (event.key) {
+        event?.preventDefault();
+        if (event?.key) {
             setKeystrokes((oldKeys: string[]) => [...oldKeys, event.key]);
         }
     };
@@ -20,9 +20,9 @@ const useCheatCodes = ({ cheatCodes, timeout, repeat = true }: IUseCheatCodes) =
         setKeystrokes([]);
     };
 
-    const getCheatCodeByName = (name: string) => {
-        const filteredCheat = activeCheats?.filter((cheat: CheatCode) => cheat.name === name);
-        return filteredCheat;
+    const getCheatCodeByName = (name: string): CheatCode[] | null => {
+        const filteredCheat = activeCheats?.filter((c: CheatCode) => c?.name === name);
+        return filteredCheat?.length > 0 ? filteredCheat : null;
     };
 
     useEffect(() => {
@@ -34,18 +34,18 @@ const useCheatCodes = ({ cheatCodes, timeout, repeat = true }: IUseCheatCodes) =
     useEffect(() => {
         const runCheatCode = (cheatCode: CheatCode) => {
             const { name, callback = () => {} } = cheatCode;
-            const cheatExist = activeCheats.filter((c: CheatCode) => c.name === name);
-            if (!cheatExist.length) {
+            const cheatExists = getCheatCodeByName(name);
+            if (!cheatExists) {
                 setActiveCheats((cheats: CheatCode[]) => [...cheats, cheatCode]);
                 callback();
             } else if (repeat) {
                 callback();
             }
-            setKeystrokes([]);
+            clearKeystrokes();
         };
 
         for (let i = 0; i < cheatCodes.length; i += 1) {
-            const { code } = cheatCodes[i];
+            const { code } = cheatCodes[i] || {};
             const isCheatValid = compareCodes(code, [...keystrokes.slice(-code?.length)])
             if (isCheatValid) {
                 runCheatCode(cheatCodes[i]);
