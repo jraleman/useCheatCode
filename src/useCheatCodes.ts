@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { compareCodes } from './utils';
+import { compareStringArrays } from './utils';
 
 const useCheatCodes = ({ cheatCodes, timeout, repeat = true }: IUseCheatCodes) => {
     const [activeCheats, setActiveCheats] = useState<CheatCode[]>([]);
@@ -46,7 +46,7 @@ const useCheatCodes = ({ cheatCodes, timeout, repeat = true }: IUseCheatCodes) =
 
         for (let i = 0; i < cheatCodes.length; i += 1) {
             const { code } = cheatCodes[i] || {};
-            const isCheatValid = compareCodes(code, [...keystrokes.slice(-code?.length)])
+            const isCheatValid = compareStringArrays(code, [...keystrokes.slice(-code?.length)]);
             if (isCheatValid) {
                 runCheatCode(cheatCodes[i]);
                 break;

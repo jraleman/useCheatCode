@@ -1,2 +1,2 @@
-export const compareCodes = (codes: string[], active: string[]) =>
-    codes?.every((k, i) => k && k?.toLowerCase() === active[i]?.toLowerCase());
+export const compareStringArrays = (arr1: string[], arr2: string[]) =>
+    arr1?.every((a, i) => a && a?.toLowerCase() === arr2[i]?.toLowerCase());
