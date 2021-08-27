@@ -32,19 +32,23 @@ const useCheatCodes = ({ cheatCodes, timeout, repeat = true }: IUseCheatCodes) =
     }, [timeout, keystrokes]);
 
     useEffect(() => {
-        // TODO: find a better (faster) way to iterate through the cheat codes list
+        const runCheatCode = (cheatCode: CheatCode) => {
+            const { name, callback = () => {} } = cheatCode;
+            const cheatExist = activeCheats.filter((c: CheatCode) => c.name === name);
+            if (!cheatExist.length) {
+                setActiveCheats((cheats: CheatCode[]) => [...cheats, cheatCode]);
+                callback();
+            } else if (repeat) {
+                callback();
+            }
+            setKeystrokes([]);
+        };
+
         for (let i = 0; i < cheatCodes.length; i += 1) {
-            const { code, name, callback = () => {} } = cheatCodes[i];
+            const { code } = cheatCodes[i];
             const isCheatValid = compareCodes(code, [...keystrokes.slice(-code?.length)])
             if (isCheatValid) {
-                const cheatExist = activeCheats.filter((c: CheatCode) => c.name === name);
-                if (!cheatExist.length) {
-                    setActiveCheats((cheats: CheatCode[]) => [...cheats, cheatCodes[i]]);
-                    callback();
-                } else if (repeat) {
-                    callback();
-                }
-                setKeystrokes([]);
+                runCheatCode(cheatCodes[i]);
                 break;
             }
         }
