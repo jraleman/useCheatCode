@@ -70,7 +70,7 @@ const useCheatCodes = ({ cheatCodes, timeout, repeat = true }: IUseCheatCodes) =
     };
 };
 
-interface IUseCheatCodes {
+export interface IUseCheatCodes {
     cheatCodes: CheatCode[];
     timeout?: number;
     repeat?: boolean;
