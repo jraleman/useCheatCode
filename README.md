@@ -2,6 +2,10 @@
 
 Implementation of a React Hook to enter cheatcodes on screen.
 
+[Demo available here, try it out! ](https://jraleman.com/useCheatCodes)
+
+Enter the [konami code](https://en.wikipedia.org/wiki/Konami_Code) and see what happens.
+
 ## Installation
 
 TBD
@@ -43,7 +47,7 @@ const {
 ## Implementation
 
 Returns `activeCheat` codes, current `keystrokes`, and some helper methods.
-Take a look at `src/useCheatCodes` to follow the implementation
+Take a look at `src/useCheatCodes`.
 
 ## TODO
 
