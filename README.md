@@ -49,6 +49,7 @@ Take a look at `src/useCheatCodes` to follow the implementation
 
 - [x] Create project repository
 - [x] Implement `useCheatCodes` following specifications
-- [ ] Open dependency project; `keystrokes-hooks` -> `@keystrokes-hooks/useCheatCodes`
+- [x] Create demo app
+- [ ] Open dependency project; `hooks` -> `@jraleman/hooks/useCheatCode`
 - [ ] Check a better way to organize and document this and other hooks
-- [ ] Create demo app
+- [ ] Create test file (try following TDD next time lol)

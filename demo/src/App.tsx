@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import useCheatCodes, { CheatCode } from '../../src/';
+import useCheatCodes, { CheatCode } from './useCheatCodes'; // <- imported from script
 
 // key -> `code` is case insensitive
 const cheatCodes: CheatCode[] = [
@@ -38,7 +38,7 @@ const App = () => {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <h2>Active Cheats:</h2>
-        {activeCheats?.map(({ name }) => (
+        {activeCheats?.map(({ name }: { name: string }) => (
           <pre key={name}>
             <code>{name}</code>
           </pre>

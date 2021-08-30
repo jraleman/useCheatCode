@@ -1,6 +1,4 @@
-import * as useCheatCodes from './useCheatCodes';
+import useCheatCodes, { CheatCode } from './useCheatCodes';
 
-export type CheatCode = useCheatCodes.CheatCode;
-export interface IUseCheatCodes extends useCheatCodes.IUseCheatCodes {};
-
+export type { CheatCode };
 export default useCheatCodes;
