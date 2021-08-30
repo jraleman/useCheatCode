@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/useCheatCodes/static/css/main.ee59a901.chunk.css",
+    "main.js": "/useCheatCodes/static/js/main.d176da2f.chunk.js",
+    "main.js.map": "/useCheatCodes/static/js/main.d176da2f.chunk.js.map",
+    "runtime-main.js": "/useCheatCodes/static/js/runtime-main.b34d695b.js",
+    "runtime-main.js.map": "/useCheatCodes/static/js/runtime-main.b34d695b.js.map",
+    "static/js/2.c46565f9.chunk.js": "/useCheatCodes/static/js/2.c46565f9.chunk.js",
+    "static/js/2.c46565f9.chunk.js.map": "/useCheatCodes/static/js/2.c46565f9.chunk.js.map",
+    "static/js/3.d34f3186.chunk.js": "/useCheatCodes/static/js/3.d34f3186.chunk.js",
+    "static/js/3.d34f3186.chunk.js.map": "/useCheatCodes/static/js/3.d34f3186.chunk.js.map",
+    "index.html": "/useCheatCodes/index.html",
+    "static/css/main.ee59a901.chunk.css.map": "/useCheatCodes/static/css/main.ee59a901.chunk.css.map",
+    "static/js/2.c46565f9.chunk.js.LICENSE.txt": "/useCheatCodes/static/js/2.c46565f9.chunk.js.LICENSE.txt",
+    "static/media/konami-code.27bac845.png": "/useCheatCodes/static/media/konami-code.27bac845.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.b34d695b.js",
+    "static/js/2.c46565f9.chunk.js",
+    "static/css/main.ee59a901.chunk.css",
+    "static/js/main.d176da2f.chunk.js"
+  ]
+}
