@@ -1,10 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import logo from './assets/konami-code.png';
-import './App.css';
 import useCheatCodes, { CheatCode } from './useCheatCodes'; // <- imported from script
+import CodesInfo from './components/CodesInfo';
+
+const defaultCode = 'konami';
+const bgColors = [
+  '#006cd1',
+  '#bc5a00',
+  '#007775',
+  '#750077',
+  '#bc0004',
+  '#42b284',
+];
 
 const App = () => {
   const [displayCodes, setDisplayCodes] = useState<boolean>(false);
+  const [backgroundColor, setBackgroundColor] = useState<string>('');
+
   const cheatCodes: CheatCode[] = [
     {
       name: 'konami',
@@ -23,46 +34,39 @@ const App = () => {
         window.location.href = 'https://4chan.com'
       }
     },
+    {
+      name: 'colors',
+      code: ['c', 'o', 'l', 'o', 'r', 's'],
+      callback: () => {
+        const random = Math.floor(Math.random() * bgColors.length);
+        const color = bgColors[random]
+        setBackgroundColor(color);
+      }
+    },
   ];
   const {
     activeCheats,
-    keystrokes,
-    clearActiveCheats,
-    clearKeystrokes,
     getCheatCodeByName,
-  } = useCheatCodes({ cheatCodes, repeat: false, timeout: 10000 });
+  } = useCheatCodes({ cheatCodes, repeat: true, timeout: 10000 });
   
+  // example on handling hook state1
+  // replace with `useCallback` so we can pass `getCheatCodeByName()` as dep arr.
   useEffect(() => {
-    const defaultCode = 'konami';
     const isActive = getCheatCodeByName(defaultCode);
     if (!displayCodes && isActive) {
       setDisplayCodes(true);
     }
   }, [activeCheats, displayCodes, getCheatCodeByName]);
 
-  console.log('keystrokes: ', keystrokes);
-  console.log('activeCheats: ', activeCheats);
   return (
-    <div className="App">
-      <header className="App-header">
-        {!displayCodes && <img src={logo} className="App-logo" alt="logo" />}
-        {displayCodes && (
-          <>
-            <h2>Active Cheats:</h2>
-            {activeCheats?.map(({ name }: { name: string }) => (
-              <pre key={name} style={{ margin: 0 }}>
-                <code>{`~ ${name} ~`}</code>
-              </pre>
-            ))}
-            <h3>Cheat Codes:</h3>
-            <code style={{ whiteSpace: 'break-spaces', textAlign: 'left', fontSize: '0.5em' }}>
-              {JSON.stringify(cheatCodes, null, 2)}
-            </code>
-          </>
-        )}
-      </header>
+    <div className="app" style={{ backgroundColor }}>
+      <CodesInfo
+        cheatCodes={cheatCodes}
+        activeCheats={activeCheats}
+        displayCodes={displayCodes}
+      />
     </div>
   );
-}
+};
 
 export default App;

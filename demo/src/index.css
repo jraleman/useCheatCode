@@ -12,22 +12,8 @@ code {
     monospace;
 }
 
-.App {
+.app {
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -38,7 +24,28 @@ code {
   color: white;
 }
 
-@keyframes App-logo-spin {
+.konami-code {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.cheat-name {
+  margin: 0;
+}
+
+.cheat-code {
+  white-space: break-spaces;
+  text-align: left;
+  font-size: 0.5em;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .konami-code {
+    animation: konami-code-spin infinite 20s linear;
+  }
+}
+
+@keyframes konami-code-spin {
   from {
     transform: rotate(0deg);
   }
