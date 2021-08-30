@@ -38,7 +38,7 @@ const App = () => {
     if (!displayCodes && isActive) {
       setDisplayCodes(true);
     }
-  }, [activeCheats]);
+  }, [activeCheats, displayCodes, getCheatCodeByName]);
 
   console.log('keystrokes: ', keystrokes);
   console.log('activeCheats: ', activeCheats);

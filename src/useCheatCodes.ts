@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { compareStringArrays } from './utils';
 
 const useCheatCodes = ({ cheatCodes, timeout, repeat = true }: IUseCheatCodes) => {
@@ -52,7 +52,7 @@ const useCheatCodes = ({ cheatCodes, timeout, repeat = true }: IUseCheatCodes) =
                 break;
             }
         }
-    }, [keystrokes, activeCheats, cheatCodes, repeat]);
+    }, [keystrokes, activeCheats, cheatCodes, repeat, getCheatCodeByName]); // <- replace with useCallback!
 
     useEffect(() => {
         window.addEventListener('keydown', handleKeyDown);
