@@ -1,4 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
+import { IUseCheatCodes } from './interfaces';
+import { CheatCode } from './types';
 import { compareStringArrays } from './utils';
 
 const useCheatCodes = ({ cheatCodes, timeout = 0, repeat = true }: IUseCheatCodes) => {
@@ -46,7 +48,7 @@ const useCheatCodes = ({ cheatCodes, timeout = 0, repeat = true }: IUseCheatCode
                 break;
             }
         }
-    }, [keystrokes, cheatCodes, repeat, getCheatCodeByName]); // <- replace with useCallback!
+    }, [keystrokes, cheatCodes, repeat, getCheatCodeByName]);
 
     useEffect(() => {
         const clearUserInput = () => timeout && keystrokes.length > 0 && clearKeystrokes();
@@ -68,18 +70,6 @@ const useCheatCodes = ({ cheatCodes, timeout = 0, repeat = true }: IUseCheatCode
         clearActiveCheats,
         getCheatCodeByName,
     };
-};
-
-export interface IUseCheatCodes {
-    cheatCodes: CheatCode[];
-    timeout?: number;
-    repeat?: boolean;
-}
-
-export type CheatCode = {
-    name: string;
-    code: string[];
-    callback?: Function;
 };
 
 export default useCheatCodes;
