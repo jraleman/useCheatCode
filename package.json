@@ -1,0 +1,27 @@
+{
+  "name": "use-cheat-codes",
+  "version": "0.0.1",
+  "description": "Implementation of a React Hook to enter cheat codes",
+  "repository": "git@github.com:jraleman/useCheatCodes.git",
+  "author": "jraleman <jraleman@bendiburg.com>",
+  "license": "MIT",
+  "main": "./lib/cjs/index.js",
+  "module": "./lib/esm/index.js",
+  "types": "./lib/esm/index.d.ts",
+  "scripts": {
+    "build": "yarn build:esm && yarn build:cjs",
+    "build:esm": "tsc",
+    "build:cjs": "tsc --module commonjs --outDir lib/cjs"
+  },
+  "devDependencies": {
+    "@types/react": "^17.0.30",
+    "@types/react-dom": "^17.0.9",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "typescript": "^4.4.4"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0"
+  }
+}
