@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { compareStringArrays } from './utils';
 
-const useCheatCodes = ({ cheatCodes, timeout, repeat = true }: IUseCheatCodes) => {
+const useCheatCodes = ({ cheatCodes, timeout = 0, repeat = true }: IUseCheatCodes) => {
     const [activeCheats, setActiveCheats] = useState<CheatCode[]>([]);
     const [keystrokes, setKeystrokes] = useState<string[]>([]);
 
@@ -20,16 +20,10 @@ const useCheatCodes = ({ cheatCodes, timeout, repeat = true }: IUseCheatCodes) =
         setKeystrokes([]);
     };
 
-    const getCheatCodeByName = (name: string): CheatCode[] | null => {
+    const getCheatCodeByName = useCallback((name: string): CheatCode[] | null => {
         const filteredCheat = activeCheats?.filter((c: CheatCode) => c?.name === name);
         return filteredCheat?.length > 0 ? filteredCheat : null;
-    };
-
-    useEffect(() => {
-        const clearUserInput = () => timeout && keystrokes.length > 0 && clearKeystrokes();
-        const t = setTimeout(clearUserInput, timeout);
-        return () => clearTimeout(t);
-    }, [timeout, keystrokes]);
+    }, [activeCheats]);
 
     useEffect(() => {
         const runCheatCode = (cheatCode: CheatCode) => {
@@ -52,7 +46,13 @@ const useCheatCodes = ({ cheatCodes, timeout, repeat = true }: IUseCheatCodes) =
                 break;
             }
         }
-    }, [keystrokes, activeCheats, cheatCodes, repeat, getCheatCodeByName]); // <- replace with useCallback!
+    }, [keystrokes, cheatCodes, repeat, getCheatCodeByName]); // <- replace with useCallback!
+
+    useEffect(() => {
+        const clearUserInput = () => timeout && keystrokes.length > 0 && clearKeystrokes();
+        const t = setTimeout(clearUserInput, timeout);
+        return () => clearTimeout(t);
+    }, [timeout, keystrokes]);
 
     useEffect(() => {
         window.addEventListener('keydown', handleKeyDown);
@@ -64,8 +64,8 @@ const useCheatCodes = ({ cheatCodes, timeout, repeat = true }: IUseCheatCodes) =
     return {
         keystrokes,
         activeCheats,
-        clearActiveCheats,
         clearKeystrokes,
+        clearActiveCheats,
         getCheatCodeByName,
     };
 };
