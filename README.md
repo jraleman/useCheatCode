@@ -6,9 +6,21 @@ Implementation of a React Hook to enter cheatcodes on screen.
 
 Enter the [konami code](https://en.wikipedia.org/wiki/Konami_Code) and see what happens.
 
+*If you prefer running the demo locally, go to the `demo/` directory and run `yarn`
+
 ## Installation
 
-TBD
+To get started, this package can be installed via `npm` or `yarn`
+
+```sh
+npm install @jraleman/use-cheat-codes
+```
+
+```sh
+yarn add @jraleman/use-cheat-codes
+```
+
+If you desire more hooks, you can install the whole library `@jraleman/hooks`
 
 ## Example
 
@@ -54,6 +66,4 @@ Take a look at `src/useCheatCodes`.
 - [x] Create project repository
 - [x] Implement `useCheatCodes` following specifications
 - [x] Create demo app
-- [ ] Open dependency project; `hooks` -> `@jraleman/hooks/useCheatCode`
-- [ ] Check a better way to organize and document this and other hooks
-- [ ] Create test file (try following TDD next time lol)
+- [x] Open dependency project; `hooks` -> `@jraleman/use-cheat-codes`
