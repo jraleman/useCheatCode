@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://jraleman.com/useCheatCodes",
   "dependencies": {
+    "@jraleman/usecheatcodes": "file:..",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -19,12 +20,11 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "cp-dep": "cp -R ../src/ ./src/useCheatCodes",
-    "start": "yarn cp-dep && react-scripts start",
-    "build": "yarn cp-dep && react-scripts build",
-    "test": "yarn cp-dep && react-scripts test",
-    "eject": "yarn cp-dep && react-scripts eject",
-    "predeploy": "yarn cp-dep && yarn run build",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "predeploy": "yarn run build",
     "deploy": "gh-pages -d build"
   },
   "eslintConfig": {

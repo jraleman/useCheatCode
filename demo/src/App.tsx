@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import useCheatCodes, { CheatCode } from './useCheatCodes'; // <- imported from script
+import useCheatCodes, { CheatCode } from '@jraleman/usecheatcodes';
 import CodesInfo from './components/CodesInfo';
 
 const defaultCode = 'konami';
@@ -31,7 +31,7 @@ const App = () => {
       name: '4chan',
       code: ['4', 'c', 'h', 'a', 'n', 'S', 'U', 'C', 'K', 'S'],
       callback: () => {
-        window.location.href = 'https://4chan.com'
+        window.location.href = 'https://4chan.org'
       }
     },
     {
@@ -49,7 +49,7 @@ const App = () => {
     getCheatCodeByName,
   } = useCheatCodes({ cheatCodes, repeat: true, timeout: 10000 });
   
-  // example on handling hook state1
+  // example on handling hook state
   // replace with `useCallback` so we can pass `getCheatCodeByName()` as dep arr.
   useEffect(() => {
     const isActive = getCheatCodeByName(defaultCode);
