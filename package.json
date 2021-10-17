@@ -1,5 +1,5 @@
 {
-  "name": "use-cheat-codes",
+  "name": "@jraleman/usecheatcodes",
   "version": "0.0.1",
   "description": "Implementation of a React Hook to enter cheat codes",
   "repository": "git@github.com:jraleman/useCheatCodes.git",
