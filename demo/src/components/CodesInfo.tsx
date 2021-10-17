@@ -1,5 +1,5 @@
 import React from 'react';
-import { CheatCode } from '../useCheatCodes';
+import { CheatCode } from '@jraleman/usecheatcodes';
 import konamiCode from '../assets/konami-code.png';
 
 const CodesInfo = ({ cheatCodes, activeCheats, displayCodes }: ICodesInfo) => {
