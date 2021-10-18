@@ -31,7 +31,7 @@ const App = () => {
       name: '4chan',
       code: ['4', 'c', 'h', 'a', 'n', 'S', 'U', 'C', 'K', 'S'],
       callback: () => {
-        window.location.href = 'https://4chan.org'
+        window.location.href = 'https://4chan.org/b/'
       }
     },
     {

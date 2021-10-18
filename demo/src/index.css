@@ -25,7 +25,8 @@ code {
 }
 
 .konami-code {
-  height: 40vmin;
+  height: 192px;
+  width: auto;
   pointer-events: none;
 }
 
@@ -37,19 +38,4 @@ code {
   white-space: break-spaces;
   text-align: left;
   font-size: 0.5em;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .konami-code {
-    animation: konami-code-spin infinite 20s linear;
-  }
-}
-
-@keyframes konami-code-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }
