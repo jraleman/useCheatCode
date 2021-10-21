@@ -1,6 +1,6 @@
 {
   "name": "@jraleman/usecheatcodes",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Implementation of a React Hook to enter cheat codes",
   "repository": "git@github.com:jraleman/useCheatCodes.git",
   "author": "jraleman <jraleman@bendiburg.com>",
@@ -21,7 +21,7 @@
     "typescript": "^4.4.4"
   },
   "peerDependencies": {
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0"
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   }
 }
