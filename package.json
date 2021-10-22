@@ -1,6 +1,6 @@
 {
   "name": "@jraleman/usecheatcodes",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Implementation of a React Hook to enter cheat codes",
   "repository": "git@github.com:jraleman/useCheatCodes.git",
   "author": "jraleman <jraleman@bendiburg.com>",
